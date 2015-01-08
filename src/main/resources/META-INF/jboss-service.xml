@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+  <mbean code="org.nailedtothex.derby.DerbyShutdown" name="derby-shutdown:service=DerbyShutdownMBean" />
+</server>
