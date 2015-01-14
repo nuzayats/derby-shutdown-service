@@ -27,9 +27,11 @@ public class DerbyShutdown implements DerbyShutdownMBean {
         Connection cn = null;
         try {
             cn = DriverManager.getConnection(url);
+            log.log(Level.SEVERE, "Derby shutdown failed (no exception occurred).");
         } catch (SQLException e) {
             if ("XJ015".equals(e.getSQLState())) {
                 log.log(Level.INFO, "Derby shutdown succeeded. SQLState={0}", e.getSQLState());
+                log.log(Level.FINEST, "Derby shutdown exception", e);
                 return;
             }
             log.log(Level.SEVERE, "Derby shutdown failed", e);
@@ -38,6 +40,7 @@ public class DerbyShutdown implements DerbyShutdownMBean {
                 try {
                     cn.close();
                 } catch (Exception e) {
+                    log.log(Level.WARNING, "Database closing error", e);
                 }
             }
         }
