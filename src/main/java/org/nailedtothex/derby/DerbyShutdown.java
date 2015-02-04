@@ -10,17 +10,22 @@ public class DerbyShutdown implements DerbyShutdownMBean {
     private static final Logger log = Logger.getLogger(DerbyShutdown.class.getName());
 
     public void create() throws Exception {
-        log.info("create DerbyShutdown MBean");
+        log.finest("create DerbyShutdown MBean");
     }
 
     public void start() throws Exception {
+        log.info("start DerbyShutdown MBean");
     }
 
+    // stop() executes before destory().
+    // it's better to execute shutdown as early as possible.
     public void stop() throws Exception {
+        log.finest("stop DerbyShutdown MBean");
+        shutdown("jdbc:derby:;shutdown=true");
     }
 
     public void destroy() throws Exception {
-        shutdown("jdbc:derby:;shutdown=true");
+        log.finest("destroy DerbyShutdown MBean");
     }
 
     private void shutdown(String url) {
